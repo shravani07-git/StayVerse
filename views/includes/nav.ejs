@@ -1,0 +1,229 @@
+<style>
+  .search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  /* Country dropdown */
+  .country-select {
+    width: 155px;
+    height: 42px;
+    border: 1px solid #ced4da;
+    border-radius: 25px;
+    padding: 0.5rem 2.2rem 0.5rem 1rem;
+    font-size: 0.85rem;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .country-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.2);
+  }
+
+  /* Search input */
+  .search-input {
+    width: 220px;
+    height: 42px;
+    border: 1px solid #ced4da;
+    border-radius: 25px;
+    padding: 0.5rem 1.3rem;
+    font-size: 0.85rem;
+    outline: none;
+  }
+
+  .search-input:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.2);
+  }
+
+  /* Search button */
+  .search-btn {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    background-color: #fe424d;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem 1.2rem;
+    white-space: nowrap;
+    transition: 0.2s ease;
+  }
+
+  .search-btn:hover,
+  .search-btn:focus {
+    background-color: #e63946;
+    color: white;
+    border: none;
+  }
+
+  .search-btn i {
+    display: inline-block;
+    font-size: 0.9rem;
+  }
+
+  /* Tablet */
+  @media (max-width: 992px) {
+    .country-select {
+      width: 135px;
+    }
+
+    .search-input {
+      width: 180px;
+    }
+
+    .search-btn {
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .search-form {
+      width: 100%;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .country-select {
+      width: 100%;
+    }
+
+    .search-input {
+      flex: 1;
+      width: auto;
+      min-width: 0;
+    }
+
+    .search-btn {
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  /* Very small screens */
+  @media (max-width: 420px) {
+    .search-input {
+      width: calc(100% - 55px);
+    }
+
+    .search-btn span {
+      display: none;
+    }
+
+    .search-btn {
+      width: 45px;
+      padding: 0;
+      border-radius: 50%;
+    }
+  }
+</style>
+
+<nav class="navbar navbar-expand-md bg-white border-bottom sticky-top">
+  <div class="container-fluid">
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+    <!-- Mobile navbar button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Left navigation -->
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      <!-- Search bar -->
+<form
+  class="d-flex search-form mx-auto"
+  action="/listings"
+  method="GET"
+  role="search"
+>
+  <!-- Country dropdown -->
+  <% if (typeof countries !== "undefined") { %>
+    <select
+      class="form-select country-select"
+      name="country"
+      aria-label="Select country"
+    >
+      <option value="">All Countries</option>
+
+      <% for (let country of countries) { %>
+        <option
+          value="<%= country %>"
+          <%= typeof selectedCountry !== "undefined" &&
+              selectedCountry === country
+              ? "selected"
+              : ""
+          %>
+        >
+          <%= country %>
+        </option>
+      <% } %>
+    </select>
+  <% } %>
+
+  <!-- Destination search -->
+  <input
+    class="form-control search-input"
+    type="search"
+    name="search"
+    placeholder="Search destination"
+    aria-label="Search destination"
+    value="<%= typeof search !== "undefined" ? search : "" %>"
+  >
+
+  <button class="btn search-btn" type="submit">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span>Search</span>
+  </button>
+</form>
+
+      <!-- Right navigation -->
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings/new">
+          Airbnb your home
+        </a>
+
+        <% if (!currUser) { %>
+          <a class="nav-link" href="/signup">
+            <b>Signup</b>
+          </a>
+
+          <a class="nav-link" href="/login">
+            <b>Login</b>
+          </a>
+        <% } %>
+
+        <% if (currUser) { %>
+          <a class="nav-link" href="/logout">
+            Logout
+          </a>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</nav>
