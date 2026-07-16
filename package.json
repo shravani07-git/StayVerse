@@ -1,21 +1,21 @@
-{ 
-  "engine" : {
-    "node" : "22.19.0"
-
-  },
+{
   "name": "majorproject",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "StayVerse MERN project",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=22.19.0 <23.0.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.16.2",
-    "cloudinary": "^2.10.0",
+    "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
